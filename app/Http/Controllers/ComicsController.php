@@ -38,6 +38,21 @@ class ComicsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+            'image' => 'required|url',
+            'type' => 'required|max:50'
+        ],
+        [
+            'title.required' => 'Campo obbligatorio',
+            'title.max' => 'Diminuire i carratteri, max :max spazi inclusi',
+            'image.required' => 'Campo obbligatorio',
+            'image.url' => 'Inserire una URL valida',
+            'type.required' => 'Campo obbligatorio',
+            'type.max' => 'Diminuire i carratteri, max :max spazi inclusi',
+
+        ]);
+
         $data = $request->all();
         $data['slug'] = $this->createSlug($data['title']);
 
@@ -84,6 +99,21 @@ class ComicsController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+            'image' => 'required|url',
+            'type' => 'required|max:50'
+        ],
+        [
+            'title.required' => 'Campo obbligatorio',
+            'title.max' => 'Diminuire i carratteri, max :max spazi inclusi',
+            'image.required' => 'Campo obbligatorio',
+            'image.url' => 'Inserire una URL valida',
+            'type.required' => 'Campo obbligatorio',
+            'type.max' => 'Diminuire i carratteri, max :max spazi inclusi',
+
+        ]);
+
         $data = $request->all();
         $data['slug'] = $this->createSlug($data['title']);
 

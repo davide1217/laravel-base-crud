@@ -1,20 +1,60 @@
 @extends('layout.main')
 
 @section('content')
-    <form action="{{route('comics.update', $comic)}}" method="POST">
-        @csrf
-        @method("PUT")
+    <div class="_container">
+        <form action="{{route('comics.update', $comic)}}" method="POST">
+            @csrf
+            @method("PUT")
 
-        <label for="title">Title:</label>
-        <input value="{{ $comic->title }}" name="title" type="text">
+            <label for="title">Title:</label>
 
-        <label for="image">image-url:</label>
-        <input value="{{ $comic->image }}" name="image" type="text">
+            @error('title')
+                <div>{{ $message }}</div>
+            @enderror
 
-        <label for="type">type:</label>
-        <input value="{{ $comic->type }}" name="type" type="text">
+            <input name="title" type="text"
+            @if (!$errors->any())
+                value="{{ $comic->title }}"
+            @else
+                value="{{ old('title') }}"
+            @endif
+            class="form-control @error('title') is-invalid @enderror"
+            placeholder="Insert the title">
 
-        <input type="submit" value="crea">
 
-    </form>
+            <label for="image">image-url:</label>
+
+            @error('image')
+                <div>{{ $message }}</div>
+            @enderror
+
+            <input name="image" type="text"
+            @if (!$errors->any())
+                value="{{ $comic->image }}"
+            @else
+                value="{{ old('image') }}"
+            @endif
+            class="form-control @error('image') is-invalid @enderror"
+            placeholder="Insert the image URL">
+
+
+            <label for="type">type:</label>
+
+            @error('type')
+                <div>{{ $message }}</div>
+            @enderror
+
+            <input name="type" type="text"
+            @if (!$errors->any())
+                value="{{ $comic->type }}"
+            @else
+                value="{{ old('type') }}"
+            @endif
+            class="form-control @error('type') is-invalid @enderror"
+            placeholder="Insert the type">
+
+            <input type="submit" value="crea">
+
+        </form>
+    </div>
 @endsection
